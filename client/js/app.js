@@ -5,6 +5,10 @@ shopApp.config(function($routeProvider){
 	.when('/login',{
 		templateUrl: 'components/login.html',
 		controller: 'loginCtrl'
+	})
+	.when('/register',{
+		templateUrl: 'components/register.html',
+		controller: 'registerCtrl'
 	}).otherwise({
 		templateUrl: 'components/home.html',
 		controller: 'homeCtrl'
@@ -13,6 +17,7 @@ shopApp.config(function($routeProvider){
 });
 
 var _url = "http://localhost:1337";
+
 
 shopApp.controller('homeCtrl', function($scope, $location){
 	$scope.goToLogin = function(){
@@ -26,7 +31,48 @@ shopApp.controller('homeCtrl', function($scope, $location){
 
 });
 
-shopApp.controller('loginCtrl', function($scope, $http){
+
+shopApp.controller('registerCtrl', function($scope, $http, $location){
+	$scope.goToIndex = function(){
+		$location.path('/');
+	};
+
+	$scope.register = function(){
+		var username = $scope.username;
+		var email = $scope.email;
+		var password = $scope.password;
+
+	    var req = {
+            url: _url +'/register',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            cache: false,
+            data: 'username='+ username +'&password='+password + '&email='+email
+        };
+
+		alert(JSON.stringify(req));
+
+        $http(req)
+            .success(function(data,status,headers,config){
+            	if(status==200){
+	               	$scope.response = "Registered!";
+            	} else {
+	               	$scope.response = "User Already Exists!";            		
+            	}
+            }).error(function(data,status){
+        }).error(function(data,status,headers,config){
+			$scope.response = "Email Already Register!";
+        });
+
+
+	}
+
+});
+
+shopApp.controller('loginCtrl', function($scope, $http, $location){
+
 	$scope.login = function(){
 		var username = $scope.username;
 		var password = $scope.password;
@@ -46,9 +92,9 @@ shopApp.controller('loginCtrl', function($scope, $http){
         $http(req)
             .success(function(data,status,headers,config){
             	if(status==200){
-	               	$scope.response = "yes!";
+	               	$scope.response = "Loged In!";
             	} else {
-	               	$scope.response = "no such user!";            		
+	               	$scope.response = "No Such User!";            		
             	}
             }).error(function(data,status){
         }).error(function(data,status,headers,config){

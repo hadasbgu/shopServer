@@ -5,5 +5,10 @@ module.exports =
         return "SELECT * FROM sampledb.usertable " +
         "WHERE (nickname like " + user_identifier + " or email like " + user_identifier + ") " +
         " and pass like " + password + ";";
-    }
+    },
+
+    registerUser: function (Nickname, email, password) {
+        return "insert into sampledb.usertable values(" + 
+        Nickname + ", "+ email + ", " + password + ");";
+        }
 };

@@ -87,6 +87,38 @@ app.post('/login', function(req,resp){
 
 });
 
+app.post('/register', function(req,resp){
+ console.log("in register");
+ console.log("req-\n" + req);
+ try {
+        var user_name = mysql.escape(req.body.username);
+        var user_email = mysql.escape(req.body.email);
+        var password = mysql.escape(req.body.password);
+
+        console.log('Got a register request from: \n'
+         + user_name + "," + password +"," +user_email);
+
+		var query = queries.registerUser(user_name,user_email,password);
+		connection.query(query, function(err,ans){
+            if (err) {
+                console.log("err" + err);
+                resp.status(400).send("Email Already Register!\n");
+            }
+            else {
+                console.log("ans:" + ans);
+                resp.status(200).json(ans);
+                console.log('OK');
+            }
+        });
+     
+    }catch (err) {
+        console.log("Error - " + err);
+        resp.status(404).send();
+    }
+
+});
+
+
 
 
 app.listen(1337, function(){
