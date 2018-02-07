@@ -10,5 +10,9 @@ module.exports =
     registerUser: function (Nickname, email, password) {
         return "insert into sampledb.usertable values(" + 
         Nickname + ", "+ email + ", " + password + ");";
-        }
+        },
+
+    getAllTable: function(tableName){
+    	return "SELECT * FROM sampledb." + tableName;
+    }
 };

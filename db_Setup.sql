@@ -5,8 +5,7 @@ create database sampledb;
 use sampledb;
 
 create table usertable (
-firstname varchar(255) not null,
-lastname varchar(255) not null,
+nickname varchar(255) not null,
 email varchar(255) not null,
 pass varchar(255) not null,
 primary key (email)
@@ -14,8 +13,21 @@ primary key (email)
 
 
 insert into usertable
-values ("admin","admin","admin@gmail.com","admin");
+values ("admin","admin@gmail.com","admin");
 
 insert into usertable
-values ("hadas","ganim","hadasg11@gmail.com","1234");
+values ("hadas","hadasg11@gmail.com","1234");
+
+
+create table categorytable (
+categoryid varchar(10) not null,
+categoryname varchar(255) not null,
+primary key (categoryid)
+);
+
+insert into categorytable
+values(1,"shirt");
+
+insert into categorytable
+values(2,"pants");
 

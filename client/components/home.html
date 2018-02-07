@@ -1,5 +1,24 @@
-<div id="buttons">
+
+
+<div id="buttons" class="col-sm-12 text-center">
 	<button ng-click="goToLogin()"> Login </button>
 	<button ng-click="register()"> Register </button>
 
+
 </div> 
+
+<div id="buttons" class="col-sm-12 text-center">
+	<button ng-click="showCategory()"> Category </button>
+	<button ng-click="categories={}"> Clear </button>
+</div>
+
+
+<div class="col-sm-4 panel-group"  ng-repeat="c in categories">
+	<div class="panel panel-default">
+        <h4 class="panel-title">
+          <p class="text-info"><bold>{{c.categoryname}}</bold></p>
+        </h4>
+	</div>
+</div>
+
+
