@@ -41,14 +41,18 @@ shopApp.controller('loginCtrl', function($scope, $http){
             data: 'username='+ username +'&password='+password
         };
 
-        alert(JSON.stringify(req));
+        // alert(JSON.stringify(req));
 
         $http(req)
             .success(function(data,status,headers,config){
-               	$scope.response = "yes!";
+            	if(status==200){
+	               	$scope.response = "yes!";
+            	} else {
+	               	$scope.response = "no such user!";            		
+            	}
             }).error(function(data,status){
         }).error(function(data,status,headers,config){
-			$scope.response = "no!";
+			$scope.response = "failed!";
         });
 
 

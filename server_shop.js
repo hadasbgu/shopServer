@@ -2,6 +2,8 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 
+var queries = require("./queryForDB.js");
+
 var app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -58,13 +60,32 @@ app.post('/login', function(req,resp){
 
         console.log('Got a login request from: \n' + user_name + "," + password);
 
-        resp.status(200).send();
+		var query = queries.getUserByNicknameOrEmail(user_name,password);
+		connection.query(query, function(err,ans){
+            if (err) {
+                console.log("err" + err);
+                resp.status(400).send("ERROR IN LOGIN");
+            }
+            else {
+                console.log("ans:" + ans);
+                if (ans.length > 0) {
+                    resp.status(200).json(ans);
+                    console.log('OK');
+                }
+                else {
+                    resp.status(204).send('ERROR');
+                    console.log('No Such User!\n');
+                }
+            }
+
+		});
+     
     }catch (err) {
         console.log("Error - " + err);
         resp.status(404).send();
     }
 
-})
+});
 
 
 
