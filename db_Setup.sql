@@ -31,3 +31,16 @@ values(1,"shirt");
 insert into categorytable
 values(2,"pants");
 
+create table producttable(
+productid varchar(10) not null,
+productName VARCHAR(40),
+color VARCHAR(40),
+categoryid  varchar(255),
+foreign key (categoryid) references categorytable(categoryid),
+primary key (productid)
+);
+
+
+
+insert into producttable
+value(1000, "lether pants", "blue", 2);

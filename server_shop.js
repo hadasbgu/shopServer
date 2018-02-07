@@ -138,11 +138,9 @@ app.get('/showCategoryList', function(req,resp){
                 resp.status(200).send(ans);
             }
         }
-
 	});
-
-
 });
+
 
 
 
