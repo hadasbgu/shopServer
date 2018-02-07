@@ -12,11 +12,27 @@
 	<button ng-click="categories={}"> Clear </button>
 </div>
 
+<div id="buttons" class="col-sm-12 text-center">
+	<button ng-click="showProducts()"> Products </button>
+	<button ng-click="products={}"> Clear </button>
+</div>
 
-<div class="col-sm-4 panel-group"  ng-repeat="c in categories">
+
+
+<div class="col-sm-12 panel-group"  ng-repeat="c in categories">
 	<div class="panel panel-default">
         <h4 class="panel-title">
           <p class="text-info"><bold>{{c.categoryname}}</bold></p>
+        </h4>
+	</div>
+</div>
+
+
+
+<div class="col-sm-12 panel-group"  ng-repeat="c in products">
+	<div class="panel panel-default">
+        <h4 class="panel-title">
+          <p class="text-info"><bold>{{c.productName}}</bold></p>
         </h4>
 	</div>
 </div>

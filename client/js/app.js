@@ -40,13 +40,43 @@ shopApp.controller('homeCtrl', function($scope, $location, $http){
             cache: false
         };
 
-        alert(JSON.stringify(req));
+        // alert(JSON.stringify(req));
 
         $http(req)
             .success(function(data,status,headers,config){
             	if(status==200){
 	               	$scope.response = "Categories!";
 	               	$scope.categories = data;
+            	} else {
+	               	$scope.response = "No Categories!";            		
+            	}
+            }).error(function(data,status){
+        }).error(function(data,status,headers,config){
+			$scope.response = "Error In Categories!!";
+        });
+
+	};
+
+
+	$scope.showProducts = function(){
+
+
+	    var req = {
+            url: _url +'/showProductList',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            cache: false
+        };
+
+        // alert(JSON.stringify(req));
+
+        $http(req)
+            .success(function(data,status,headers,config){
+            	if(status==200){
+	               	$scope.response = "Categories!";
+	               	$scope.products = data;
             	} else {
 	               	$scope.response = "No Categories!";            		
             	}
@@ -82,7 +112,7 @@ shopApp.controller('registerCtrl', function($scope, $http, $location){
             data: 'username='+ username +'&password='+password + '&email='+email
         };
 
-		alert(JSON.stringify(req));
+		// alert(JSON.stringify(req));
 
         $http(req)
             .success(function(data,status,headers,config){

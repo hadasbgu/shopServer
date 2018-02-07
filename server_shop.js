@@ -141,6 +141,29 @@ app.get('/showCategoryList', function(req,resp){
 	});
 });
 
+app.get('/showProductList', function(req,resp){
+	console.log('in GET showProductList');
+	var tableName = "producttable";
+	var query = queries.getAllTable(tableName);
+
+	console.log(query);
+
+		connection.query(query, function(err,ans){
+		    if (err) {
+	            console.log(err);
+	            resp.status(400).send("DB error");
+	        }else {
+		        if (ans.length == 0) {
+	                resp.status(204).send();
+	            }
+	            else {
+	                resp.status(200).send(ans);
+	            }
+	        }
+		});
+
+});
+
 
 
 
