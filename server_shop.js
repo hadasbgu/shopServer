@@ -1,9 +1,11 @@
 var express = require('express');
 var mysql = require('mysql');
-
+var bodyParser = require('body-parser');
 
 var app = express();
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
 
 var connection = mysql.createConnection({
@@ -44,6 +46,27 @@ app.get('/first', function(req,resp){
 	})
 
 });
+
+
+app.post('/login', function(req,resp){
+ console.log("in login");
+ console.log("req-\n" + req);
+ try {
+        var user_name = mysql.escape(req.body.username);
+        /* user_name can be id or email */
+        var password = mysql.escape(req.body.password);
+
+        console.log('Got a login request from: \n' + user_name + "," + password);
+
+        resp.status(200).send();
+    }catch (err) {
+        console.log("Error - " + err);
+        resp.status(404).send();
+    }
+
+})
+
+
 
 app.listen(1337, function(){
 	console.log('listening 1337');

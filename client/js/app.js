@@ -12,7 +12,9 @@ shopApp.config(function($routeProvider){
 
 });
 
-shopApp.controller('homeCtrl', function($scope){
+var _url = "http://localhost:1337";
+
+shopApp.controller('homeCtrl', function($scope, $location){
 	$scope.goToLogin = function(){
 		$location.path('/login');
 	};
@@ -24,9 +26,32 @@ shopApp.controller('homeCtrl', function($scope){
 
 });
 
-shopApp.controller('loginCtrl', function($scope){
+shopApp.controller('loginCtrl', function($scope, $http){
 	$scope.login = function(){
 		var username = $scope.username;
 		var password = $scope.password;
-	}
+
+	    var req = {
+            url: _url +'/login',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            cache: false,
+            data: 'username='+ username +'&password='+password
+        };
+
+        alert(JSON.stringify(req));
+
+        $http(req)
+            .success(function(data,status,headers,config){
+               	$scope.response = "yes!";
+            }).error(function(data,status){
+        }).error(function(data,status,headers,config){
+			$scope.response = "no!";
+        });
+
+
+
+	} // $scope.login
 });
